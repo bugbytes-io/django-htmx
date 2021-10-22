@@ -8,13 +8,19 @@
     <form method="POST" action="{% url 'register' %}">
         {% csrf_token %}
 
-        {% for field in form %}
         <div class="form-group mb-3">
-            <label>{{ field.label_tag }}</label>
-            {{ field.errors }}
-            {% render_field field class="form-control" placeholder=field.name %}
+            <label>{{ form.username.label_tag }}</label>
+            {{ form.username.errors }}
+            {% render_field form.username class="form-control" %}
+
+            <label>{{ form.password1.label_tag }}</label>
+            {{ form.password1.errors }}
+            {% render_field form.password1 class="form-control" %}
+
+            <label>{{ form.password2.label_tag }}</label>
+            {{ form.password2.errors }}
+            {% render_field form.password2 class="form-control" %}
         </div>
-        {% endfor %}
         
         <button type="submit" class="btn btn-success mt-2">Register</button>
     </form>
