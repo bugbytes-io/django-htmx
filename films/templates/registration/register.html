@@ -5,13 +5,14 @@
 <div class="align-center col-8 offset-2">
     <p class="lead mb-3 ml-0">Register</p>
     <hr/>
-    <form method="POST" action="{% url 'register' %}">
+    <form method="POST" action="{% url 'register' %}" autocomplete='off'>
         {% csrf_token %}
 
         <div class="form-group mb-3">
             <label>{{ form.username.label_tag }}</label>
             {{ form.username.errors }}
-            {% render_field form.username class="form-control" %}
+            {% render_field form.username class="form-control" hx-post="/check_username/" hx-swap="outerhtml" hx-trigger="keyup changed" hx-target="#username-error" %}
+            <div id="username-error"></div>
 
             <label>{{ form.password1.label_tag }}</label>
             {{ form.password1.errors }}
