@@ -1,0 +1,9 @@
+{% if films %}
+    <ul>
+    {% for film in films %}
+        <li>{{ film.name }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>You do not have any films in your list</p>
+{% endif %}

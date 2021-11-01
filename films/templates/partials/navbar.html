@@ -5,7 +5,7 @@
         <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="#">Movies</a>
+                <a class="nav-link" href="{% url 'film-list' %}">Films</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
