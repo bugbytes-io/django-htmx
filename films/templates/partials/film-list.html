@@ -1,7 +1,7 @@
 {% if films %}
-    <ul>
+    <ul class="list-group col-4">
     {% for film in films %}
-        <li>{{ film.name }}</li>
+        <li class="list-group-item">{{ film.name }}</li>
     {% endfor %}
     </ul>
 {% else %}
