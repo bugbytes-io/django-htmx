@@ -6,14 +6,20 @@
         <p class="lead ml-0">My Films</p>
         <form hx-post="{% url 'add-film' %}" hx-target='#film-list' class="d-flex align-items-center">
             {% csrf_token %}
-            <input type="text" name="filmname" class="form-control-sm mr-2" placeholder="Enter a film" />
+            <input type="text" 
+                id="filmname-input"
+                name="filmname" 
+                class="form-control-sm mr-2" 
+                placeholder="Enter a film" />
             <button type="submit" class="btn btn-success btn-sm">Add Film</button>
         </form>
     </div>
     <hr/>
     
-    <div id="film-list">
-        {% include 'partials/film-list.html' %}
-    </div>
+    <main class="d-flex">
+        <section id="film-list" class="col-12">
+            {% include 'partials/film-list.html' %}
+        </section>
+    </main>
 </div>
 {% endblock content %}
