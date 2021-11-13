@@ -30,12 +30,14 @@ INSTALLED_APPS = [
     'django_extensions',
     'films',
     'django_htmx',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     "django_htmx.middleware.HtmxMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -127,3 +129,7 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
 PAGINATE_BY = 100
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
