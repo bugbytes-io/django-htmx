@@ -1,5 +1,6 @@
 from django.http.response import HttpResponse, HttpResponsePermanentRedirect
 from django.shortcuts import get_object_or_404, render
+from django.conf import settings
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
@@ -8,6 +9,7 @@ from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from films.forms import RegisterForm
 from films.models import Film, UserFilms
@@ -33,8 +35,14 @@ class RegisterView(FormView):
 
 class FilmList(LoginRequiredMixin, ListView):
     template_name = 'films.html'
-    model = Film
+    model = UserFilms
+    paginate_by = settings.PAGINATE_BY
     context_object_name = 'films'
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return 'partials/film-list-elements.html'
+        return 'films.html'
 
     def get_queryset(self):
         return UserFilms.objects.filter(user=self.request.user)
@@ -105,7 +113,12 @@ def sort(request):
         userfilm.save()
         films.append(userfilm)
 
-    return render(request, 'partials/film-list.html', {'films': films})
+    paginator = Paginator(films, settings.PAGINATE_BY)
+    page_number = len(film_pks_order) / settings.PAGINATE_BY
+    page_obj = paginator.get_page(page_number)
+    context = {'films': films, 'page_obj': page_obj}
+
+    return render(request, 'partials/film-list.html', context)
 
 @login_required
 def detail(request, pk):

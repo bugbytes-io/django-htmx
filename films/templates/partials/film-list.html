@@ -29,22 +29,7 @@
         {% csrf_token %}
         <form class="sortable list-group" hx-trigger="end" hx-post="{% url 'sort' %}" hx-target="#film-list">
             <div class="htmx-indicator">Updating...</div>
-            {% for film in films %}
-            <div>
-                
-                <input type="hidden" name="film_order" value="{{ film.pk }}" />
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a hx-get="{% url 'detail' film.pk %}" hx-target="#film-list">
-                        #{{film.order}} {{ film.film.name }}
-                    </a>
-                    <span class="badge badge-danger badge-pill" 
-                        style="cursor: pointer;"
-                        hx-delete="{% url 'delete-film' film.pk %}"
-                        hx-target="#film-list"
-                        hx-confirm="Are you sure you wish to delete?">X</span>
-                </li>
-            </div>
-        {% endfor %}
+                {% include 'partials/film-list-elements.html' %}
         </form>
     {% else %}
         <p>You do not have any films in your list</p>

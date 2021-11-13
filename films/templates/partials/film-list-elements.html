@@ -1,0 +1,23 @@
+{% for film in films %}
+
+{% if forloop.last %} 
+<div hx-get="{% url 'film-list' %}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend" hx-target="this">
+{% else %} 
+<div>
+{% endif %}
+    
+    <input type="hidden" name="film_order" value="{{ film.pk }}" />
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a hx-get="{% url 'detail' film.pk %}" 
+            hx-target="#film-list"
+            hx-push-url="/films/{{ film.film.name }}">
+            #{{film.order}} {{ film.film.name }}
+        </a>
+        <span class="badge badge-danger badge-pill" 
+            style="cursor: pointer;"
+            hx-delete="{% url 'delete-film' film.pk %}"
+            hx-target="#film-list"
+            hx-confirm="Are you sure you wish to delete?">X</span>
+    </li>
+</div>
+{% endfor %}

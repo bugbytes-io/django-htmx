@@ -29,12 +29,14 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django_extensions',
     'films',
+    'django_htmx',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    "django_htmx.middleware.HtmxMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -123,3 +125,5 @@ AUTH_USER_MODEL = 'films.User'
 
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
+
+PAGINATE_BY = 100

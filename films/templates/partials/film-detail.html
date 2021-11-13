@@ -7,7 +7,8 @@
     
         <button class="btn btn-primary" 
         hx-get="{% url 'film-list-partial' %}" 
-        hx-target="#film-list">Your List</button>
+        hx-target="#film-list"
+        hx-push-url="/films">Your List</button>
     </div>
 
     <div>
