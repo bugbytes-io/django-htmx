@@ -1,9 +1,9 @@
 from django.http.response import HttpResponse, HttpResponsePermanentRedirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -106,3 +106,23 @@ def sort(request):
         films.append(userfilm)
 
     return render(request, 'partials/film-list.html', {'films': films})
+
+@login_required
+def detail(request, pk):
+    userfilm = get_object_or_404(UserFilms, pk=pk)
+    context = {'userfilm': userfilm}
+    return render(request, 'partials/film-detail.html', context)
+
+@login_required
+def films_partial(request):
+    films = UserFilms.objects.filter(user=request.user)
+    return render(request, 'partials/film-list.html', {'films': films})
+
+@login_required
+def upload_photo(request, pk):
+    userfilm = get_object_or_404(UserFilms, pk=pk)
+    print(request.FILES)
+    photo = request.FILES.get('photo')
+    userfilm.film.photo.save(photo.name, photo)
+    context = {'userfilm': userfilm}
+    return render(request, 'partials/film-detail.html', context)
