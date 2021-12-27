@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="align-center col-8 offset-2">
+    <p class="lead mb-3 ml-0">Login</p>
+    <hr/>
+    <form method="POST" action="{% url 'login' %}" autocomplete="off">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="form-group mb-3">
+            <label>{{ field.label_tag }}</label>
+            {{ field.errors }}
+            {% render_field field class="form-control" placeholder=field.name %}
+        </div>
+        {% endfor %}
+        
+        <button type="submit" class="btn btn-success mt-2">Login</button>
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% if results %}
+
+    {% csrf_token %}
+    <ul class="list-group col-xs-12">
+    {% for film in results %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ film.name }}
+            <span class="badge badge-success badge-pill" 
+                style="cursor: pointer;"
+                hx-post="{% url 'add-film' %}"
+                hx-vals='{"filmname": "{{film.name}}"}'
+                hx-target="#film-list">add</span>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No search results</p>
+{% endif %}

@@ -1,0 +1,15 @@
+#navbar {
+    height: 100px;
+}
+
+.success {
+    color: green;
+    transition: all ease-in .5s;
+}
+
+.error {
+    color: red;
+    font-size: 50px;
+    transform: rotate(45deg);
+    transition: all ease-in 5s;
+}
