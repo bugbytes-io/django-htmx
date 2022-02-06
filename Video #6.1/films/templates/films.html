@@ -9,7 +9,7 @@
             <input type="text" 
                 id="filmname-input"
                 name="filmname" 
-                class="form-control-sm mr-2" 
+                class="title form-control-sm mr-2" 
                 placeholder="Enter a film" />
             <button type="submit" class="btn btn-success btn-sm">Add Film</button>
         </form>
@@ -22,4 +22,9 @@
         </section>
     </main>
 </div>
+    <script>
+        document.body.addEventListener('htmx:afterRequest', (event) => {
+            document.querySelector("input.title").value = '';
+        });
+    </script>
 {% endblock content %}
